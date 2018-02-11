@@ -1,13 +1,5 @@
 package protocol
 
-// type Color struct {
-// 	R, G, B string
-// }
-
-// func (c Color) MarshalJSON() ([]byte, error) {
-// 	return json.Marshal("#" + c.R + c.G + c.B)
-// }
-
 type Alignment string
 
 const (
@@ -15,8 +7,6 @@ const (
 	Right  Alignment = "right"
 	Center Alignment = "center"
 )
-
-// type CustomValues map[string]interface{}
 
 type Block struct {
 	FullText   string `json:"full_text"`
@@ -40,7 +30,3 @@ type Block struct {
 	// should allow custom _keyed things
 	// Other Custom
 }
-
-// func (b Block) MarshalJSON() ([]byte, error) {
-// 	return json.Marshal(b)
-// }

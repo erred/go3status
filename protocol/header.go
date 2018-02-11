@@ -7,10 +7,12 @@ type Header struct {
 	ClickEvents bool `json:"click_event,omitemptys"`
 }
 
-// func NewHeader(stop, cont int, click bool) Header {
-// 	return Header{1, stop, cont, click}
-// }
+func NewHeader(stop, cont int, click bool) Header {
+	return Header{1, stop, cont, click}
+}
 
-// func (h *Header) MarshalJSON([]byte, string) {
-// 	return json.Marshal(h)
-// }
+func MinimalHeader() Header {
+	var header Header
+	header.Version = 1
+	return header
+}

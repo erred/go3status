@@ -7,7 +7,3 @@ type ClickEvent struct {
 	X        int    `json:"x"`
 	Y        int    `json:"y"`
 }
-
-// func (c clickEvent) UnmarshalJSON(b []byte) error {
-// 	return json.Unmarshal(b, c)
-// }
