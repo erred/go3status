@@ -32,7 +32,7 @@ func (s *Status) NewBlocks(cs []chan *protocol.Block) {
 }
 
 // BlockUpdater updates a given block using the given channel
-// Blocks indefinitely
+// Blocks indefinitely, allows atomic update
 func (s *Status) BlockUpdater(i int, c chan *protocol.Block) {
 	for {
 		s.blocks[i] <- c
