@@ -3,7 +3,7 @@ package protocol
 type Header struct {
 	Version     int  `json:"version"`
 	StopSignal  int  `json:"stop_signal,omitempty"`
-	ContSignal  int  `json:"cont_signa,omitemptyl"`
+	ContSignal  int  `json:"cont_signal,omitemptyl"`
 	ClickEvents bool `json:"click_event,omitemptys"`
 }
 

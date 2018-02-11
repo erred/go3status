@@ -8,15 +8,17 @@ import (
 )
 
 type Status struct {
-	encoder json.Encoder
+	encoder *json.Encoder
+	w       io.Writer
 	header  protocol.Header
 	blocks  []*protocol.Block
 }
 
 // NewStatus creates and initializes a Status object
-func NewStatus(w io.Writer, h Header) *Status {
+func NewStatus(w io.Writer, h protocol.Header) *Status {
 	var status Status
 	status.encoder = json.NewEncoder(w)
+	status.w = w
 	status.header = h
 	return &status
 }
@@ -35,21 +37,22 @@ func (s *Status) NewBlocks(cs []chan *protocol.Block) {
 // Blocks indefinitely, allows atomic update
 func (s *Status) BlockUpdater(i int, c chan *protocol.Block) {
 	for {
-		s.blocks[i] <- c
+		s.blocks[i] = <-c
 	}
 }
 
 // Begin starts the stream, with a header and then an opening brace
 func (s *Status) Begin() error {
-	err := s.encoder.Encode(e.header)
-	if err != nil {
+	if err := s.encoder.Encode(s.header); err != nil {
 		return err
 	}
 
-	return s.encoder.Encode("[")
+	// because [ is not valid json
+	_, err = s.w.Write([]byte("["))
+	return err
 }
 
 // Next outputs an entire statusline using the current state of blocks
 func (s *Status) Next() error {
-	return s.encoder.Encoder(e.blocks)
+	return s.encoder.Encode(s.blocks)
 }
