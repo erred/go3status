@@ -2,42 +2,12 @@
 # ColorGood = "#00ff00"
 # ColorBad = "#ff0000"
 
-# Interval = 1
-
-# [[block]]
-# 	name = "name1"
-# 	instance = "1"
-
-# 	[block.options]
-# 		opt1 = 1
-# 		opt2 = 2
-
-# [[block]]
-# 	name = "name1"
-# 	instance = "2"
-
-# 	[block.options]
-# 		opt1 = 2
-# 		opt2 = 1
-
-# [[block]]
-# 	name = "name2"
-# 	instance = "1"
-
-# 	[block.options]
-# 		opt3 = 0
-# 		opt4 = 0
-
 [[block]]
     name = "static"
-    instance = "1"
     [block.options]
+        # instance = "1"
         text = "hello, world!"
-        color = "#aaaaaa"
+        # color = "#aaaaaa"
 
 [[block]]
-    name = "static"
-    instance = "2"
-    [block.options]
-        text = "hello, world! 2"
-        color = "#aaaaaa"
+    name = "time"

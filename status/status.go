@@ -29,9 +29,10 @@ func NewStatus(w io.Writer, h protocol.Header) *Status {
 func (s *Status) RegisterBlocks(cs []chan *protocol.Block) {
 	s.blocks = make([]*protocol.Block, len(cs))
 	for i, c := range cs {
-		// go s.BlockUpdater(i, c)
 		go func(i int, c chan *protocol.Block) {
-			s.blocks[i] = <-c
+			for block := range c {
+				s.blocks[i] = block
+			}
 		}(i, c)
 	}
 }

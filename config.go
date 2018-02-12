@@ -9,28 +9,20 @@ import (
 	"github.com/seankhliao/go3status/protocol"
 )
 
-var ModuleNames = map[string]func(string, string) mod.Module{
+var ModuleNames = map[string]func() mod.Module{
 	"static": mod.NewStatic,
+	"time":   mod.NewTime,
 }
 
 type Config struct {
-	// colors = true
-	// color_good = "#81a2be"
-	// color_degraded = "#b294bb"
-	// color_bad = "#cc6666"
-	// interval = 1
-
-	// order += "wifi"
 	ColorGood     string
 	ColorDegraded string
 	ColorBad      string
-	Interval      int
+	// Interval      int
 
-	// RawOpts []RawOpt `toml:"block"`
 	RawOpts []struct {
-		Name     string
-		Instance string
-		Options  toml.Primitive
+		Name    string
+		Options toml.Primitive
 	} `toml:"block"`
 	Blocks []mod.Module
 }
@@ -47,7 +39,7 @@ func ParseConfig(tom string) (*Config, error) {
 			return &c, errors.New("name not found")
 		}
 
-		mod := ModuleNames[opts.Name](opts.Instance)
+		mod := ModuleNames[opts.Name]()
 		if err := m.PrimitiveDecode(opts.Options, mod); err != nil {
 			return &c, err
 		}
