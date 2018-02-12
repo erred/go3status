@@ -4,17 +4,15 @@
 #     option2 = vale
 
 [[conf]]
-    [conf.static.options]
-        instance = "1"
+    [conf.static]
         text = "hello, world"
 
 [[conf]]
-    [conf.static.options]
-        instance = "2"
+    [conf.static]
         text = "bbbbbbbb"
 
 [[conf]]
-    [conf.time.options]
+    [conf.time]
         # TimeFormat = "2006-01-02 15:04:05"
         # TimeZone = "Local"
         # Format = "{{.Timezone}}: {{.Time}}"
