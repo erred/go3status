@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io"
 
+	"github.com/seankhliao/go3status/mod"
 	"github.com/seankhliao/go3status/protocol"
 )
 
@@ -11,7 +12,7 @@ type Status struct {
 	encoder *json.Encoder
 	w       io.Writer
 	header  protocol.Header
-	blocks  []*protocol.Block
+	Blocks  []*protocol.Block
 }
 
 // NewStatus creates and initializes a Status object
@@ -23,17 +24,10 @@ func NewStatus(w io.Writer, h protocol.Header) *Status {
 	return &status
 }
 
-// RegisterBlocks connects feed channels to their output state
-// Given a slice of chnnels to update from
-// it runs each updater in its own goroutine
-func (s *Status) RegisterBlocks(cs []chan *protocol.Block) {
-	s.blocks = make([]*protocol.Block, len(cs))
-	for i, c := range cs {
-		go func(i int, c chan *protocol.Block) {
-			for block := range c {
-				s.blocks[i] = block
-			}
-		}(i, c)
+func (s *Status) StartBlocks(modules []mod.Module) {
+	s.Blocks = make([]*protocol.Block, len(modules))
+	for i, module := range modules {
+		module.Start(s.Blocks, i)
 	}
 }
 
@@ -50,5 +44,5 @@ func (s *Status) Start() error {
 
 // Next outputs an entire statusline using the current state of blocks
 func (s *Status) Next() error {
-	return s.encoder.Encode(s.blocks)
+	return s.encoder.Encode(s.Blocks)
 }

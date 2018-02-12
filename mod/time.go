@@ -35,6 +35,6 @@ func (m *Time) NewBlock(t time.Time) *protocol.Block {
 	}
 }
 
-func (m *Time) Start() (chan time.Time, chan *protocol.Block) {
-	return m.Mod.Start(m.NewBlock)
+func (m *Time) Start(blocks []*protocol.Block, pos int) {
+	m.Mod.Start(blocks, pos, m.NewBlock)
 }

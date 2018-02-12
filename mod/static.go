@@ -15,7 +15,7 @@ type Static struct {
 
 func NewStatic() Module {
 	return &Static{
-		Mod: NewMod("static", MaxInt),
+		Mod: NewMod("static", 0),
 	}
 }
 
@@ -28,6 +28,6 @@ func (m *Static) NewBlock(t time.Time) *protocol.Block {
 	}
 }
 
-func (m *Static) Start() (chan time.Time, chan *protocol.Block) {
-	return m.Mod.Start(m.NewBlock)
+func (m *Static) Start(blocks []*protocol.Block, pos int) {
+	m.Mod.Start(blocks, pos, m.NewBlock)
 }

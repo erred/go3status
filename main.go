@@ -20,15 +20,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	ts, bs := conf.StartBlocks()
-	s.RegisterBlocks(bs)
+	s.StartBlocks(conf.Blocks)
 
-	ticker := time.NewTicker(time.Second)
-	for t := range ticker.C {
-		log.Println(time.Now().Format(time.StampMilli), " :: ", t.Format(time.StampMilli))
-		for _, s := range ts {
-			s <- t
-		}
+	for range time.NewTicker(time.Second).C {
 		if err := s.Next(); err != nil {
 			log.Fatal(err)
 		}

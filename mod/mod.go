@@ -9,7 +9,7 @@ import (
 const MaxInt = int(^uint(0) >> 1)
 
 type Module interface {
-	Start() (chan time.Time, chan *protocol.Block)
+	Start(blocks []*protocol.Block, pos int)
 	NewBlock(t time.Time) *protocol.Block
 }
 
@@ -19,6 +19,8 @@ type Mod struct {
 	counter int
 	tick    chan time.Time
 	tock    chan *protocol.Block
+	blocks  []*protocol.Block
+	pos     int
 
 	// General
 	Instance  string
@@ -35,14 +37,15 @@ func NewMod(name string, freq int) Mod {
 	}
 }
 
-func (m *Mod) Start(newBlock func(time.Time) *protocol.Block) (chan time.Time, chan *protocol.Block) {
+func (m *Mod) Start(blocks []*protocol.Block, pos int, blockFunc func(time.Time) *protocol.Block) {
+	m.blocks = blocks
+	m.pos = pos
 	go func() {
-		for t := range m.tick {
-			if m.counter%m.Frequency == 0 {
-				m.tock <- newBlock(t)
+		m.blocks[m.pos] = blockFunc(time.Now())
+		if m.Frequency > 0 {
+			for t := range time.NewTicker(time.Second * time.Duration(m.Frequency)).C {
+				m.blocks[m.pos] = blockFunc(t)
 			}
-			m.counter++
 		}
 	}()
-	return m.tick, m.tock
 }
