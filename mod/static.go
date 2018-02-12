@@ -17,7 +17,8 @@ type Static struct {
 
 	tick chan time.Time
 	tock chan *protocol.Block
-	// <= 0: never update
+	// < 0: never executes, don't do this!
+	// = 0: never update
 	// > 0: update every n ticks (seconds)
 	Frequency int
 	counter   int
@@ -25,7 +26,6 @@ type Static struct {
 
 func NewStatic(instance string) Module {
 	var m Static
-
 	m.instance = instance
 	m.tick = make(chan time.Time, 1)
 	m.tock = make(chan *protocol.Block, 1)
@@ -49,15 +49,12 @@ func (m *Static) NewBlock(t time.Time) *protocol.Block {
 
 func (m *Static) Start() (chan time.Time, chan *protocol.Block) {
 	go func() {
-		if m.Frequency <= 0 {
-			m.tock <- m.NewBlock(time.Now())
-		}
 		for t := range m.tick {
-			m.counter++
 			if m.counter == m.Frequency {
 				m.counter = 0
 				m.tock <- m.NewBlock(t)
 			}
+			m.counter++
 		}
 	}()
 	return m.tick, m.tock
