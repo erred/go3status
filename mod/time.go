@@ -19,9 +19,7 @@ func NewTime() Module {
 	return &Time{
 		Mod: NewMod("time", 1),
 
-		Format:      time.StampMilli,
-		FormatShort: "2006",
-		Color:       "#ffffff",
+		Format: time.ANSI,
 	}
 }
 
