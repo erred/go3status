@@ -1,22 +1,18 @@
+# all blocks follow the following format
+# [type of block]
+#     option1 = value
+#     option2 = vale
 
-# ColorGood = "#00ff00"
-# ColorBad = "#ff0000"
+[[conf]]
+    [conf.static]
+        instance = "1"
+        text = "hello, world"
 
-# [[block]]
-#     name = "static"
-#     [block.options]
-#         # instance = "1"
-#         text = "hello, world!"
-#         # color = "#aaaaaa"
+[[conf]]
+    [conf.static]
+        instance = "2"
+        text = "bbbbbbbb"
 
-# [[block]]
-#     name = "time"
-# [config]
-#     ColorBad = "#ffffff"
-
-[static]
-    instance = "1"
-    text = "hello, world"
-
-[time]
-    format = "2006"
+[[conf]]
+    [conf.time]
+        format = "2006"
