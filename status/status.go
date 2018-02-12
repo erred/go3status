@@ -23,23 +23,26 @@ func NewStatus(w io.Writer, h protocol.Header) *Status {
 	return &status
 }
 
-// NewBlocks initializes and starts updating blocks
+// RegisterBlocks connects feed channels to their output state
 // Given a slice of chnnels to update from
 // it runs each updater in its own goroutine
-func (s *Status) NewBlocks(cs []chan *protocol.Block) {
+func (s *Status) RegisterBlocks(cs []chan *protocol.Block) {
 	s.blocks = make([]*protocol.Block, len(cs))
 	for i, c := range cs {
-		go s.BlockUpdater(i, c)
+		// go s.BlockUpdater(i, c)
+		go func(i int, c chan *protocol.Block) {
+			s.blocks[i] = <-c
+		}(i, c)
 	}
 }
 
 // BlockUpdater updates a given block using the given channel
 // Blocks indefinitely, allows atomic update
-func (s *Status) BlockUpdater(i int, c chan *protocol.Block) {
-	for {
-		s.blocks[i] = <-c
-	}
-}
+// func (s *Status) BlockUpdater(i int, c chan *protocol.Block) {
+// 	for {
+// 		s.blocks[i] = <-c
+// 	}
+// }
 
 // Begin starts the stream, with a header and then an opening brace
 func (s *Status) Begin() error {
@@ -48,7 +51,7 @@ func (s *Status) Begin() error {
 	}
 
 	// because [ is not valid json
-	_, err = s.w.Write([]byte("["))
+	_, err := s.w.Write([]byte("["))
 	return err
 }
 
