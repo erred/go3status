@@ -24,11 +24,14 @@ func NewStatus(w io.Writer, h protocol.Header) *Status {
 	return &status
 }
 
-func (s *Status) StartBlocks(modules []mod.Module) {
+func (s *Status) StartBlocks(modules []mod.Module) error {
 	s.Blocks = make([]*protocol.Block, len(modules))
 	for i, module := range modules {
-		module.Start(s.Blocks, i)
+		if err := module.Start(s.Blocks, i); err != nil {
+			return err
+		}
 	}
+	return nil
 }
 
 // Start starts the stream, with a header and then an opening brace

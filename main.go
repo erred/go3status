@@ -20,7 +20,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	s.StartBlocks(modules)
+	if err := s.StartBlocks(modules); err != nil {
+		log.Fatal(err)
+	}
 
 	for range time.NewTicker(time.Second).C {
 		if err := s.Next(); err != nil {

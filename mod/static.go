@@ -28,6 +28,7 @@ func (m *Static) NewBlock(t time.Time) *protocol.Block {
 	}
 }
 
-func (m *Static) Start(blocks []*protocol.Block, pos int) {
+func (m *Static) Start(blocks []*protocol.Block, pos int) error {
 	m.Mod.Start(blocks, pos, m.NewBlock)
+	return nil
 }

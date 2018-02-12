@@ -9,7 +9,7 @@ import (
 const MaxInt = int(^uint(0) >> 1)
 
 type Module interface {
-	Start(blocks []*protocol.Block, pos int)
+	Start(blocks []*protocol.Block, pos int) error
 	NewBlock(t time.Time) *protocol.Block
 }
 

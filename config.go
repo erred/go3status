@@ -3,7 +3,7 @@ package main
 import (
 	"errors"
 
-	"github.com/pelletier/go-toml"
+	"github.com/BurntSushi/toml"
 	"github.com/seankhliao/go3status/mod"
 )
 
@@ -21,21 +21,25 @@ var ModuleNames = map[string]func() mod.Module{
 
 func ParseConfig(fpath string) ([]mod.Module, error) {
 	var blocks []mod.Module
-
-	tree, err := toml.LoadFile(fpath)
+	var base map[string][]map[string]toml.Primitive
+	meta, err := toml.DecodeFile(fpath, &base)
 	if err != nil {
 		return blocks, err
 	}
 
-	for _, raw := range tree.Get("conf").([]*toml.Tree) {
-		key := raw.Keys()[0]
+	for _, raw := range base["conf"] {
+		var key string
+		for k := range raw {
+			key = k
+		}
+
 		newBlockFunc, ok := ModuleNames[key]
 		if !ok {
 			return blocks, errors.New("module not found: " + key)
 		}
 
 		block := newBlockFunc()
-		if err = raw.Get(key).(*toml.Tree).Unmarshal(block); err != nil {
+		if err = meta.PrimitiveDecode(raw[key], block); err != nil {
 			return blocks, err
 		}
 		blocks = append(blocks, block)
