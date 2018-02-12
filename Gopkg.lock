@@ -2,14 +2,14 @@
 
 
 [[projects]]
-  name = "github.com/BurntSushi/toml"
+  name = "github.com/pelletier/go-toml"
   packages = ["."]
-  revision = "b26d9c308763d68093482582cea63d69be07a0f0"
-  version = "v0.3.0"
+  revision = "acdc4509485b587f5e675510c4f2c63e90ff68a8"
+  version = "v1.1.0"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "25c744eb70aefb94032db749509fd34b2fb6e7c6041e8b8c405f7e97d10bdb8d"
+  inputs-digest = "9432a6a8f48801728db8543c021ab783ad9c4af617e1fe1ac77b007b447c5616"
   solver-name = "gps-cdcl"
   solver-version = 1
