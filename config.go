@@ -2,15 +2,15 @@ package main
 
 import (
 	"errors"
-	"reflect"
 	"time"
 
 	"github.com/BurntSushi/toml"
+	"github.com/seankhliao/go3status/mod"
 	"github.com/seankhliao/go3status/protocol"
 )
 
-var ModuleNames = map[string]Module{
-	"static": &ModStatic{},
+var ModuleNames = map[string]func(string, string) mod.Module{
+	"static": mod.NewStatic,
 }
 
 type Config struct {
@@ -32,7 +32,7 @@ type Config struct {
 		Instance string
 		Options  toml.Primitive
 	} `toml:"block"`
-	Blocks []Module
+	Blocks []mod.Module
 }
 
 func ParseConfig(tom string) (*Config, error) {
@@ -43,17 +43,14 @@ func ParseConfig(tom string) (*Config, error) {
 	}
 
 	for _, opts := range c.RawOpts {
-		v, ok := ModuleNames[opts.Name]
-		if !ok {
+		if _, ok := ModuleNames[opts.Name]; !ok {
 			return &c, errors.New("name not found")
 		}
-		mod := reflect.New(reflect.ValueOf(v).Elem().Type()).Interface().(Module)
 
+		mod := ModuleNames[opts.Name](opts.Instance)
 		if err := m.PrimitiveDecode(opts.Options, mod); err != nil {
 			return &c, err
 		}
-
-		mod.Rename(opts.Name, opts.Instance)
 		c.Blocks = append(c.Blocks, mod)
 	}
 	return &c, nil

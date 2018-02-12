@@ -36,16 +36,8 @@ func (s *Status) RegisterBlocks(cs []chan *protocol.Block) {
 	}
 }
 
-// BlockUpdater updates a given block using the given channel
-// Blocks indefinitely, allows atomic update
-// func (s *Status) BlockUpdater(i int, c chan *protocol.Block) {
-// 	for {
-// 		s.blocks[i] = <-c
-// 	}
-// }
-
-// Begin starts the stream, with a header and then an opening brace
-func (s *Status) Begin() error {
+// Start starts the stream, with a header and then an opening brace
+func (s *Status) Start() error {
 	if err := s.encoder.Encode(s.header); err != nil {
 		return err
 	}

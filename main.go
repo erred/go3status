@@ -9,11 +9,6 @@ import (
 	"github.com/seankhliao/go3status/status"
 )
 
-type Module interface {
-	Rename(name, instance string)
-	Start() (chan time.Time, chan *protocol.Block)
-}
-
 func main() {
 	conf, err := ParseConfig("default.toml")
 	if err != nil {
@@ -21,7 +16,7 @@ func main() {
 	}
 
 	s := status.NewStatus(os.Stdout, protocol.MinimalHeader())
-	if err := s.Begin(); err != nil {
+	if err := s.Start(); err != nil {
 		log.Fatal(err)
 	}
 
