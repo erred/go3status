@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	conf, err := ParseConfig("default.toml")
+	modules, err := ParseConfig("default.toml")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -20,7 +20,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	s.StartBlocks(conf.Blocks)
+	s.StartBlocks(modules)
 
 	for range time.NewTicker(time.Second).C {
 		if err := s.Next(); err != nil {

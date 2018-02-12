@@ -2,12 +2,21 @@
 # ColorGood = "#00ff00"
 # ColorBad = "#ff0000"
 
-[[block]]
-    name = "static"
-    [block.options]
-        # instance = "1"
-        text = "hello, world!"
-        # color = "#aaaaaa"
+# [[block]]
+#     name = "static"
+#     [block.options]
+#         # instance = "1"
+#         text = "hello, world!"
+#         # color = "#aaaaaa"
 
-[[block]]
-    name = "time"
+# [[block]]
+#     name = "time"
+# [config]
+#     ColorBad = "#ffffff"
+
+[static]
+    instance = "1"
+    text = "hello, world"
+
+[time]
+    format = "2006"

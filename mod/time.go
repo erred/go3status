@@ -19,17 +19,15 @@ func NewTime() Module {
 	return &Time{
 		Mod: NewMod("time", 1),
 
-		Format: time.ANSI,
+		Format: time.ANSIC,
 	}
 }
 
 func (m *Time) NewBlock(t time.Time) *protocol.Block {
 	return &protocol.Block{
-		FullText:  time.Now().Format(m.Format),
-		ShortText: t.Format(m.Format),
-		Color:     m.Color,
-		Name:      m.name,
-		Instance:  m.Instance,
+		FullText: time.Now().Format(m.Format),
+		Name:     m.name,
+		Instance: m.Instance,
 	}
 }
 

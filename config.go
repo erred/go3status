@@ -12,36 +12,33 @@ var ModuleNames = map[string]func() mod.Module{
 	"time":   mod.NewTime,
 }
 
-type Config struct {
-	ColorGood     string
-	ColorDegraded string
-	ColorBad      string
-	// Interval      int
+// type General struct {
+// 	ColorGood     string
+// 	ColorDegraded string
+// 	ColorBad      string
+// 	// Interval      int
+// }
 
-	RawOpts []struct {
-		Name    string
-		Options toml.Primitive
-	} `toml:"block"`
-	Blocks []mod.Module
-}
+func ParseConfig(fpath string) ([]mod.Module, error) {
+	var rawConf map[string]toml.Primitive
+	var blocks []mod.Module
 
-func ParseConfig(tom string) (*Config, error) {
-	var c Config
-	m, err := toml.DecodeFile(tom, &c)
+	m, err := toml.DecodeFile(fpath, &rawConf)
 	if err != nil {
-		return &c, err
+		return blocks, err
 	}
 
-	for _, opts := range c.RawOpts {
-		if _, ok := ModuleNames[opts.Name]; !ok {
-			return &c, errors.New("name not found")
+	for name, primitive := range rawConf {
+		newBlockFunc, ok := ModuleNames[name]
+		if !ok {
+			return blocks, errors.New("module not found: " + name)
 		}
 
-		mod := ModuleNames[opts.Name]()
-		if err := m.PrimitiveDecode(opts.Options, mod); err != nil {
-			return &c, err
+		block := newBlockFunc()
+		if err := m.PrimitiveDecode(primitive, block); err != nil {
+			return blocks, err
 		}
-		c.Blocks = append(c.Blocks, mod)
+		blocks = append(blocks, block)
 	}
-	return &c, nil
+	return blocks, nil
 }
