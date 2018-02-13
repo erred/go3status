@@ -27,9 +27,9 @@ func DefaultTime() Module {
 	return &Time{
 		Mod: NewMod("time", 1),
 
-		TimeFormat: time.ANSIC,
+		TimeFormat: "2006-01-02 15:04:05",
 		TimeZone:   "Local",
-		Format:     "{{.Timezone}}: {{.Time}}",
+		Format:     " {{.Time}} ",
 	}
 }
 

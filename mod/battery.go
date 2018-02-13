@@ -42,8 +42,8 @@ func DefaultBattery() Module {
 		ColorCritical:     "#bf616a",
 		ColorDischarge:    "#d8dee9",
 		ColorWarn:         "#d08770",
-		FormatCharge:      "⚡: {{.Percent}}%",
-		FormatDischarge:   "⊙ : {{.Percent}}%",
+		FormatCharge:      " ⚡: {{.Percent}}% ",
+		FormatDischarge:   " ⊙ : {{.Percent}}% ",
 		ThresholdCritical: 10,
 		ThresholdWarn:     25,
 	}
