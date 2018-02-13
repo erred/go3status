@@ -13,7 +13,7 @@ func main() {
 	raw, err := ioutil.ReadFile("default.toml")
 	var config string
 	if err != nil {
-		log.Println("file not found")
+		// log.Println("file not found")
 		config = DefaultConfig
 	} else {
 		config = string(raw)

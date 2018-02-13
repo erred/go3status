@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"io"
 
 	"github.com/seankhliao/go-i3bar-protocol"
@@ -9,8 +8,7 @@ import (
 )
 
 type Status struct {
-	encoder *json.Encoder
-	w       io.Writer
+	encoder *protocol.Encoder
 	header  protocol.Header
 	Blocks  []*protocol.Block
 }
@@ -18,8 +16,7 @@ type Status struct {
 // NewStatus creates and initializes a Status object
 func NewStatus(w io.Writer, h protocol.Header) *Status {
 	var status Status
-	status.encoder = json.NewEncoder(w)
-	status.w = w
+	status.encoder = protocol.NewEncoder(w)
 	status.header = h
 	return &status
 }
@@ -39,10 +36,7 @@ func (s *Status) Start() error {
 	if err := s.encoder.Encode(s.header); err != nil {
 		return err
 	}
-
-	// because [ is not valid json
-	_, err := s.w.Write([]byte("["))
-	return err
+	return s.encoder.BeginArray()
 }
 
 // Next outputs an entire statusline using the current state of blocks

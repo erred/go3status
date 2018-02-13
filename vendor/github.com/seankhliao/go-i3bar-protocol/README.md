@@ -21,17 +21,13 @@ import (
 )
 
 func main() {
-        e := json.NewEncoder("os.Stdout")
+        e := protocol.NewEncoder(os.Stdout)
         e.Encode(protocol.MinimalHeader())
-
-        // requires opening brace of inifinite array
-        // is not valid json
-        os.Stdout.Write([]byte("["))
-
-        var blocks []protocol.Block
-        // fill blocks
+        e.BeginArray()
 
         for {
+                var blocks []protocol.Block
+                // fill blocks
                 e.Encode(blocks)
         }
 }
@@ -39,4 +35,4 @@ func main() {
 
 ## License
 
-The MIT License (MIT) - see [`LICENSE.md`](LICENSE.md) for more details
+The MIT License (MIT) - see [`LICENSE`](LICENSE) for more details
