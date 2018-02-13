@@ -1,21 +1,30 @@
 package main
 
 import (
+	"io/ioutil"
 	"log"
 	"os"
 	"time"
 
 	"github.com/seankhliao/go3status/protocol"
-	"github.com/seankhliao/go3status/status"
 )
 
 func main() {
-	modules, err := ParseConfig("default.toml")
+	raw, err := ioutil.ReadFile("default.toml")
+	var config string
+	if err != nil {
+		log.Println("file not found")
+		config = DefaultConfig
+	} else {
+		config = string(raw)
+	}
+
+	modules, err := ParseConfig(config)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	s := status.NewStatus(os.Stdout, protocol.MinimalHeader())
+	s := NewStatus(os.Stdout, protocol.MinimalHeader())
 	if err := s.Start(); err != nil {
 		log.Fatal(err)
 	}

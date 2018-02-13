@@ -12,17 +12,18 @@ import (
 type Time struct {
 	Mod
 
-	// Specific
+	Format     string // text/template
+	TimeFormat string // Output format of time, Go reference time
+	TimeZone   string // Timezone or "Local"
 
-	TimeFormat string
-	TimeZone   string
-	Format     string
-
-	location *time.Location
-	tmpl     *template.Template
+	location *time.Location     // parsed TimeZone
+	tmpl     *template.Template // parsed Format
+	// Placeholders:
+	// {{.Time}}
+	// {{.Timezone}}
 }
 
-func NewTime() Module {
+func DefaultTime() Module {
 	return &Time{
 		Mod: NewMod("time", 1),
 
@@ -39,8 +40,7 @@ func (m *Time) NewBlock(t time.Time) *protocol.Block {
 	}
 
 	var b bytes.Buffer
-	err := m.tmpl.Execute(&b, data)
-	if err != nil {
+	if err := m.tmpl.Execute(&b, data); err != nil {
 		log.Println(err)
 	}
 
@@ -59,7 +59,7 @@ func (m *Time) Start(blocks []*protocol.Block, pos int) error {
 		return err
 	}
 
-	m.tmpl, err = template.New("t").Parse(m.Format)
+	m.tmpl, err = template.New("").Parse(m.Format)
 	if err != nil {
 		return err
 	}

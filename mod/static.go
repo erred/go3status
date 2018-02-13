@@ -9,11 +9,11 @@ import (
 type Static struct {
 	Mod
 
-	Text  string
-	Color string
+	Text  string // Text to display
+	Color string // Color of text
 }
 
-func NewStatic() Module {
+func DefaultStatic() Module {
 	return &Static{
 		Mod: NewMod("static", 0),
 	}

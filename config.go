@@ -8,21 +8,15 @@ import (
 )
 
 var ModuleNames = map[string]func() mod.Module{
-	"static": mod.NewStatic,
-	"time":   mod.NewTime,
+	"battery": mod.DefaultBattery,
+	"static":  mod.DefaultStatic,
+	"time":    mod.DefaultTime,
 }
 
-// type General struct {
-// 	ColorGood     string
-// 	ColorDegraded string
-// 	ColorBad      string
-// 	// Interval      int
-// }
-
-func ParseConfig(fpath string) ([]mod.Module, error) {
+func ParseConfig(config string) ([]mod.Module, error) {
 	var blocks []mod.Module
 	var base map[string][]map[string]toml.Primitive
-	meta, err := toml.DecodeFile(fpath, &base)
+	meta, err := toml.Decode(config, &base)
 	if err != nil {
 		return blocks, err
 	}
