@@ -3,7 +3,7 @@ package mod
 import (
 	"time"
 
-	"github.com/seankhliao/go3status/protocol"
+	"github.com/seankhliao/go-i3bar-protocol"
 )
 
 type Static struct {

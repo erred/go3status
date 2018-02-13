@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"io"
 
+	"github.com/seankhliao/go-i3bar-protocol"
 	"github.com/seankhliao/go3status/mod"
-	"github.com/seankhliao/go3status/protocol"
 )
 
 type Status struct {

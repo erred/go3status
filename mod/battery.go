@@ -9,7 +9,7 @@ import (
 	"path"
 	"time"
 
-	"github.com/seankhliao/go3status/protocol"
+	"github.com/seankhliao/go-i3bar-protocol"
 )
 
 type Battery struct {
