@@ -7,9 +7,15 @@
   revision = "b26d9c308763d68093482582cea63d69be07a0f0"
   version = "v0.3.0"
 
+[[projects]]
+  branch = "master"
+  name = "github.com/seankhliao/go-i3bar-protocol"
+  packages = ["."]
+  revision = "f5967edea1e5970b175cc5031becb7a076f13eef"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "25c744eb70aefb94032db749509fd34b2fb6e7c6041e8b8c405f7e97d10bdb8d"
+  inputs-digest = "8022217cda6417de8dcdbdd7c254774c24e33e9a70d7a89b9324b5bcebadeb43"
   solver-name = "gps-cdcl"
   solver-version = 1
