@@ -11,7 +11,7 @@
   branch = "master"
   name = "github.com/seankhliao/go-i3bar-protocol"
   packages = ["."]
-  revision = "f5967edea1e5970b175cc5031becb7a076f13eef"
+  revision = "5048b0eab3206bf20b039e0b5fbf1583a691bbb2"
 
 [solve-meta]
   analyzer-name = "dep"

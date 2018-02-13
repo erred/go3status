@@ -12,7 +12,7 @@ func NewHeader(stop, cont int, click bool) Header {
 }
 
 func MinimalHeader() Header {
-	return &Header{
+	return Header{
 		Version: 1,
 	}
 }
