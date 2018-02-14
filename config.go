@@ -11,6 +11,7 @@ var ModuleNames = map[string]func() mod.Module{
 	"battery": mod.DefaultBattery,
 	"static":  mod.DefaultStatic,
 	"time":    mod.DefaultTime,
+	"volume":  mod.DefaultVolume,
 }
 
 func ParseConfig(config string) ([]mod.Module, error) {

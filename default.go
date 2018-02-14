@@ -9,4 +9,7 @@ var DefaultConfig string = `
 
 [[conf]]
     [conf.time]
+
+[[conf]]
+    [conf.volume]
 `

@@ -3,3 +3,8 @@
 A statusline for use with i3bar / swaybar
 
 https://i3wm.org/docs/i3bar-protocol.html
+
+## Dependencies
+
+### volume
+`amixer` from `alsa-utils`
