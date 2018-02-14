@@ -35,8 +35,8 @@ func DefaultVolume() Module {
 		Control:    "Master",
 		ColorMute:  "#bf616a",
 		ColorOn:    "#d8dee9",
-		FormatMute: " ♫ : {{.Percent}}% ",
-		FormatOn:   " ✗ : {{.Percent}}% ",
+		FormatMute: " ✗ : {{.Percent}}% ",
+		FormatOn:   " ♫ : {{.Percent}}% ",
 
 		prog:      "amixer",
 		progFlags: []string{"-M", "get"},
