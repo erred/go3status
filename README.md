@@ -7,4 +7,9 @@ https://i3wm.org/docs/i3bar-protocol.html
 ## Dependencies
 
 ### volume
+
 `amixer` from `alsa-utils`
+
+### wifi
+
+`wpa_cli` from `wpa_supplicant`

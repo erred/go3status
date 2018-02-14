@@ -5,6 +5,9 @@ var DefaultConfig string = `
 #     [conf.static]
 
 [[conf]]
+    [conf.wifi]
+
+[[conf]]
     [conf.volume]
 
 [[conf]]
