@@ -5,11 +5,12 @@ var DefaultConfig string = `
 #     [conf.static]
 
 [[conf]]
+    [conf.volume]
+
+[[conf]]
     [conf.battery]
 
 [[conf]]
     [conf.time]
 
-[[conf]]
-    [conf.volume]
 `
