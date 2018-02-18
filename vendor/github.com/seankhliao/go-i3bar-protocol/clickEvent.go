@@ -1,5 +1,6 @@
 package protocol
 
+// ClickEvent encodes a click event to be handled
 type ClickEvent struct {
 	Name     string `json:"name"`
 	Instance string `json:"instance"`

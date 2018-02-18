@@ -1,13 +1,18 @@
 package protocol
 
+// Alignment of text within a block
 type Alignment string
 
 const (
-	Left   Alignment = "left"
-	Right  Alignment = "right"
+	// Left aligns text to left
+	Left Alignment = "left"
+	// Right aligns text to right
+	Right Alignment = "right"
+	// Center aligns text
 	Center Alignment = "center"
 )
 
+// Block represents a single cell in the status line
 type Block struct {
 	FullText   string `json:"full_text"`
 	ShortText  string `json:"short_text,omitempty"`
