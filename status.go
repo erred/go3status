@@ -7,6 +7,7 @@ import (
 	"github.com/seankhliao/go3status/mod"
 )
 
+// Status caches the global state of modules, also had encoded
 type Status struct {
 	encoder *protocol.Encoder
 	header  protocol.Header
@@ -21,6 +22,7 @@ func NewStatus(w io.Writer, h protocol.Header) *Status {
 	return &status
 }
 
+// StartBlocks starts each modules
 func (s *Status) StartBlocks(modules []mod.Module) error {
 	s.Blocks = make([]*protocol.Block, len(modules))
 	for i, module := range modules {

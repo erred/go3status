@@ -7,6 +7,7 @@ import (
 	"github.com/seankhliao/go3status/mod"
 )
 
+// ModuleNames is a global map of names to their initializer funcs
 var ModuleNames = map[string]func() mod.Module{
 	"battery": mod.DefaultBattery,
 	"static":  mod.DefaultStatic,
@@ -15,6 +16,7 @@ var ModuleNames = map[string]func() mod.Module{
 	"wifi":    mod.DefaultWifi,
 }
 
+// ParseConfig parses a string of TOML to generate the array of modules
 func ParseConfig(config string) ([]mod.Module, error) {
 	var blocks []mod.Module
 	var base map[string][]map[string]toml.Primitive

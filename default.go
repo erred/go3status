@@ -1,6 +1,7 @@
 package main
 
-var DefaultConfig string = `
+// DefaultConfig is the config used if no config file is found
+var DefaultConfig = `
 # [[conf]]
 #     [conf.static]
 
